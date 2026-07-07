@@ -16,6 +16,11 @@ Pre req:
 My playbook, which is executed in a control node that has ssh access to my Red Hat VM and bastion node, is divided into three parts.
 
 i: Adding the grubby parameters to my OpenShift VM that will allow the bastion to take console access
+
 ii: Executing the Key enroll expect script on the bastion node
+
 iii: Removing the added grubby parameters as they are not safe and might leave an attack surface. 
+
+       
+       
        ( A good admin will make the least amount of changes needed in a functioning environment ) 
