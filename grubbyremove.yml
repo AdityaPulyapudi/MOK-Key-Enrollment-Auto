@@ -1,0 +1,24 @@
+---
+- name: Remove the grubby configurations
+  hosts: vm
+  tasks:
+
+  - name: Grub parameters configuration
+    ansible.builtin.command: grubby --update-kernel=ALL --remove-args="console=tty0 console=ttyS0,115200"
+
+  - name: Verify the Grub configuration
+    command: grubby --info=ALL
+    register: grubby_info_post
+
+  - name: Display the grubby info
+    ansible.builtin.debug:
+      msg: "{{ grubby_info_post.stdout }}"
+
+  - name: Reboot the system
+    ansible.builtin.reboot:
+      msg: " Rebooting the system"
+      reboot_timeout: 60
+      pre_reboot_delay: 0
+      post_reboot_delay: 5
+      test_command: uptime
+

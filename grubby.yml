@@ -1,0 +1,23 @@
+---
+- name: AV key enrollment
+  hosts: vm
+  tasks:
+  - name: Grub parameters configuration
+    ansible.builtin.command: grubby --update-kernel=ALL --args="console=tty0 console=ttyS0,115200"
+
+  - name: Verify the Grub configuration
+    command: grubby --info=ALL
+    register: grubby_info
+
+  - name: Display the grubby info
+    ansible.builtin.debug:
+      msg: "{{ grubby_info.stdout }}"
+
+  - name: Reboot the system
+    ansible.builtin.reboot:
+      msg: " Rebooting the system"
+      reboot_timeout: 100
+      pre_reboot_delay: 0
+      post_reboot_delay: 10
+      test_command: uptime
+

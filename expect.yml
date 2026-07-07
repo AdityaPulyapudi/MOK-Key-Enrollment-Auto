@@ -1,0 +1,11 @@
+---
+- name: AV key enrollment
+  hosts: vm
+  tasks:
+
+  - name: Execute the expect script on the bastion node
+    ansible.builtin.shell: "/usr/bin/expect /root/avkeyenroll.sh {{ inventory_hostname }}"
+    delegate_to: "{{ groups['bastion'][0] }}"
+    register: result
+    ignore_errors: yes
+
